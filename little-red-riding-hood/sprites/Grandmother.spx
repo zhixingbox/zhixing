@@ -1,0 +1,69 @@
+var (
+    wisdom = 100
+    healingPower = 50
+)
+
+onStart => {
+    setXYpos -180, 120
+    setCostume "sitting"
+    setSize 1.0
+    show
+    say "我的孩子，注意安全", 2
+}
+
+onTouchStart "LittleRedRidingHood", => {
+    say "让奶奶给你治疗", 2
+    broadcast "healLittleRedRidingHood"
+    
+    wait 1
+    say "记住，真正的力量来自内心", 2
+    say "黑暗魔法可以被净化", 2
+}
+
+onMsg "healLittleRedRidingHood", => {
+    if healingPower > 0 {
+        healingPower -= 10
+        setGraphicEffect ColorEffect, 30
+        wait 0.5
+        clearGraphicEffects
+    }
+}
+
+onClick => {
+    say "我曾是森林守护者", 2
+    wait 2
+    say "现在轮到你了，孩子", 2
+}
+
+onMsg "wolfAwakened", => {
+    say "善良终将战胜邪恶", 2
+}
+
+onMsg "scene1", => {
+    say "小心点，森林不太平静", 2
+}
+
+onMsg "gameWin", => {
+    setCostume "proud"
+    say "你做到了！我为你骄傲", 3
+    say "你是真正的守护者", 2
+}
+
+onMsg "gameLose", => {
+    say "孩子...不...", 2
+    setGraphicEffect ColorEffect, -50
+}
+
+onKey KeyG, => {
+    say "按空格键使用净化之光", 2
+    say "方向键移动", 1
+}
+
+onStart => {
+    wait 5
+    say "森林的平衡被打破了", 2
+    wait 3
+    say "黑暗力量正在蔓延", 2
+    wait 5
+    broadcast "scene2"
+}
