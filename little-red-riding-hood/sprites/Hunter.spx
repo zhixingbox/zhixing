@@ -1,0 +1,78 @@
+var (
+    appeared = false
+    protectionRadius = 80
+)
+
+onStart => {
+    hide
+    setXYpos 200, -100
+    setCostume "ready"
+    setSize 1.1
+    
+    wait 10
+    
+    show
+    appeared = true
+    say "我来帮助你，小红帽！", 2
+    broadcast "hunterArrives"
+    
+    glide -100, -80, 2
+}
+
+onStart => {
+    waitUntil appeared
+    
+    forever => {
+        protectLittleRedRidingHood
+        wait 0.5
+    }
+}
+
+func protectLittleRedRidingHood() {
+    dist = distanceTo("LittleRedRidingHood")
+    
+    if dist > protectionRadius {
+        turnTo "LittleRedRidingHood"
+        step 4
+    } else {
+        if touching("Wolf") {
+            say "离她远点！", 1
+            broadcast "pushWolfBack"
+        }
+    }
+}
+
+onMsg "pushWolfBack", => {
+    say "保护守护者！", 1
+}
+
+onMsg "wolfAwakened", => {
+    say "原来你是被控制的...", 2
+    say "那我们现在是盟友了", 2
+}
+
+onClick => {
+    say "我是森林的守护者", 1.5
+}
+
+onTouchStart "LittleRedRidingHood", => {
+    say "勇敢的孩子，别害怕！", 1
+}
+
+onMsg "gameLose", => {
+    say "我来晚了...", 2
+    setGraphicEffect ColorEffect, -30
+}
+
+onMsg "gameWin", => {
+    setCostume "celebrate"
+    say "干得好！", 2
+}
+
+onKey KeyH, => {
+    if appeared {
+        xpos_lrh = getWidget(Monitor, "LittleRedRidingHood").xpos
+        ypos_lrh = getWidget(Monitor, "LittleRedRidingHood").ypos
+        glide xpos_lrh + 50, ypos_lrh, 1
+    }
+}

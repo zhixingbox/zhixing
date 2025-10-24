@@ -1,0 +1,71 @@
+var (
+    currentScene = 1
+    gameStartTime = 0
+    hunterAppeared = false
+    wolfAwakened = false
+    guardianBadge = true
+)
+
+onStart => {
+    setBackdrop "forest_edge"
+    gameStartTime = timer
+    
+    say "第一幕：命运的相遇", 3
+    wait 3
+    say "场景1：森林边缘的小屋", 2
+}
+
+onBackdrop "forest_edge", => {
+    currentScene = 1
+}
+
+onBackdrop "dark_forest", => {
+    currentScene = 2
+}
+
+onBackdrop "encounter_path", => {
+    currentScene = 3
+}
+
+onBackdrop "truth_revealed", => {
+    currentScene = 4
+}
+
+onMsg "scene2", => {
+    setBackdropAndWait "dark_forest"
+    say "场景2：黑暗的侵袭", 3
+    say "森林开始出现异常现象...", 2
+}
+
+onMsg "scene3", => {
+    setBackdropAndWait "encounter_path"
+    say "第二幕：意外的联盟", 3
+    say "场景3：第一次交锋", 2
+}
+
+onMsg "scene4", => {
+    setBackdropAndWait "truth_revealed"
+    say "场景4：真相的揭露", 3
+    say "小红帽发现了灰太狼眼中的挣扎...", 2
+}
+
+onMsg "wolfAwakened", => {
+    wolfAwakened = true
+    say "灰太狼：我...我被黑暗巫师控制了...", 3
+    say "小红帽：让我们联手对抗黑暗巫师！", 2
+}
+
+onMsg "hunterArrives", => {
+    say "猎人出现了！", 2
+}
+
+onMsg "gameWin", => {
+    say "恭喜！小红帽成功守护了森林！", 3
+    stopAllSounds
+}
+
+onMsg "gameLose", => {
+    say "守护者徽章被夺走了...", 3
+    say "游戏结束", 2
+    stopAllSounds
+}

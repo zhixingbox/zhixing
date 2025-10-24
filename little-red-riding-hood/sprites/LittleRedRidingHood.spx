@@ -1,0 +1,99 @@
+var (
+    speed = 5
+    health = 100
+    hasBadge = true
+    purificationPower = 50
+)
+
+onStart => {
+    setXYpos -150, -50
+    setCostume "standing"
+    setSize 1.2
+    show
+    say "我是森林守护者的继承人", 2
+}
+
+onKey KeyUp, => {
+    changeYpos speed
+    setCostume "walk_up"
+    setHeading Up
+}
+
+onKey KeyDown, => {
+    changeYpos -speed
+    setCostume "walk_down"
+    setHeading Down
+}
+
+onKey KeyLeft, => {
+    changeXpos -speed
+    setCostume "walk_left"
+    setHeading Left
+}
+
+onKey KeyRight, => {
+    changeXpos speed
+    setCostume "walk_right"
+    setHeading Right
+}
+
+onKey KeySpace, => {
+    if touching("Wolf") {
+        say "净化之光！", 1
+        broadcast "purifyWolf"
+        purificationPower -= 10
+    }
+}
+
+onMsg "purifyWolf", => {
+    if purificationPower > 0 {
+        say "我感受到了你内心的挣扎", 2
+        wait 1
+        broadcast "wolfAwakened"
+    }
+}
+
+onTouchStart "Wolf", => {
+    if hasBadge {
+        health -= 10
+        say "啊！", 0.5
+        changeGraphicEffect ColorEffect, 50
+        wait 0.2
+        clearGraphicEffects
+        
+        if health <= 0 {
+            hasBadge = false
+            say "徽章被夺走了...", 2
+            broadcast "gameLose"
+            hide
+        }
+    }
+}
+
+onTouchStart "Grandmother", => {
+    say "奶奶，我来看您了！", 2
+    health = 100
+}
+
+onTouchStart "Hunter", => {
+    say "猎人叔叔，帮帮我！", 2
+    health += 20
+    if health > 100 {
+        health = 100
+    }
+}
+
+onClick => {
+    say "守护森林是我的使命！", 1
+}
+
+onMsg "gameLose", => {
+    setGraphicEffect ColorEffect, -50
+    say "我失败了...", 2
+}
+
+onMsg "gameWin", => {
+    setCostume "victory"
+    say "森林得救了！", 3
+    setSize 1.5
+}
