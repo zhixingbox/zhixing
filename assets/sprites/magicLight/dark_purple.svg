@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="purpleGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#9370DB;stop-opacity:1" />
+      <stop offset="40%" style="stop-color:#663399;stop-opacity:0.8" />
+      <stop offset="70%" style="stop-color:#483D8B;stop-opacity:0.5" />
+      <stop offset="100%" style="stop-color:#2F1B3C;stop-opacity:0" />
+    </radialGradient>
+    <filter id="blur2">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4" />
+    </filter>
+  </defs>
+  
+  <!-- Outer dark aura -->
+  <circle cx="100" cy="100" r="85" fill="url(#purpleGlow)" opacity="0.7" filter="url(#blur2)"/>
+  
+  <!-- Middle layer with tendrils -->
+  <path d="M 100,100 Q 50,80 40,60" stroke="#8B008B" stroke-width="3" fill="none" opacity="0.6"/>
+  <path d="M 100,100 Q 150,80 160,60" stroke="#8B008B" stroke-width="3" fill="none" opacity="0.6"/>
+  <path d="M 100,100 Q 80,130 60,150" stroke="#9400D3" stroke-width="3" fill="none" opacity="0.6"/>
+  <path d="M 100,100 Q 120,130 140,150" stroke="#9400D3" stroke-width="3" fill="none" opacity="0.6"/>
+  
+  <!-- Dark particles -->
+  <g opacity="0.8">
+    <circle cx="100" cy="45" r="2.5" fill="#BA55D3"/>
+    <circle cx="155" cy="75" r="2" fill="#9932CC"/>
+    <circle cx="145" cy="125" r="2.5" fill="#8B008B"/>
+    <circle cx="45" cy="75" r="2" fill="#9400D3"/>
+    <circle cx="55" cy="125" r="2.5" fill="#800080"/>
+    <circle cx="100" cy="155" r="2" fill="#663399"/>
+  </g>
+  
+  <!-- Core -->
+  <circle cx="100" cy="100" r="35" fill="#4B0082" opacity="0.9"/>
+  <circle cx="100" cy="100" r="20" fill="#8B008B" opacity="0.8"/>
+  <circle cx="100" cy="100" r="10" fill="#9400D3"/>
+</svg>

@@ -1,0 +1,109 @@
+// 魔法光效精灵
+// 用于各种魔法场景的光效展示
+
+// 初始化 - 默认隐藏
+onStart => {
+	hide
+	setSize(1)
+}
+
+// 示例用法函数
+
+// 显示净化光效
+func showPurificationLight(x float64, y float64) {
+	setXYpos x, y
+	setCostume "净化绿光"
+	show
+	
+	// 淡入效果
+	setGraphicEffect GhostEffect, 100
+	repeat 10, => {
+		changeGraphicEffect GhostEffect, -10
+		changeSize 0.1
+		wait 0.05
+	}
+}
+
+// 显示黑暗魔法光效
+func showDarkMagic(x float64, y float64) {
+	setXYpos x, y
+	setCostume "黑暗紫光"
+	show
+	
+	// 脉动效果
+	repeat 8, => {
+		changeGraphicEffect ColorEffect, 50
+		wait 0.15
+		changeGraphicEffect ColorEffect, -50
+		wait 0.15
+	}
+}
+
+// 显示力量觉醒光效
+func showPowerAwakening(x float64, y float64) {
+	setXYpos x, y
+	setCostume "金色力量"
+	show
+	
+	// 爆发效果
+	setSize 0.5
+	repeat 15, => {
+		changeSize 0.15
+		changeGraphicEffect BrightnessEffect, 5
+		wait 0.08
+	}
+}
+
+// 显示防护罩光效
+func showShield(x float64, y float64) {
+	setXYpos x, y
+	setCostume "蓝色护盾"
+	show
+	
+	// 闪烁防护效果
+	repeat 5, => {
+		setGraphicEffect BrightnessEffect, 30
+		wait 0.2
+		clearGraphicEffects
+		wait 0.2
+	}
+}
+
+// 显示警告光效(被控制)
+func showWarning(x float64, y float64) {
+	setXYpos x, y
+	setCostume "红色警告"
+	show
+	
+	// 快速闪烁
+	repeat 10, => {
+		setGraphicEffect ColorEffect, 100
+		wait 0.1
+		clearGraphicEffects
+		wait 0.1
+	}
+}
+
+// 显示治疗光效
+func showHealing(x float64, y float64) {
+	setXYpos x, y
+	setCostume "治疗闪光"
+	show
+	
+	// 柔和闪光
+	repeat 12, => {
+		changeGraphicEffect BrightnessEffect, 8
+		wait 0.1
+	}
+	repeat 12, => {
+		changeGraphicEffect BrightnessEffect, -8
+		wait 0.1
+	}
+}
+
+// 隐藏光效并重置
+func hideLight() {
+	clearGraphicEffects
+	hide
+	setSize 1
+}

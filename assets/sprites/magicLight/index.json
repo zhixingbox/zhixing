@@ -1,0 +1,69 @@
+{
+  "heading": 90,
+  "x": 0,
+  "y": 0,
+  "size": 1,
+  "rotationStyle": "normal",
+  "physicsMode": "no",
+  "costumeIndex": 0,
+  "visible": false,
+  "isDraggable": false,
+  "collisionPivot": {
+    "x": 0,
+    "y": 0
+  },
+  "collisionShapeType": "none",
+  "collisionShapeParams": [],
+  "costumes": [
+    {
+      "x": 100,
+      "y": 100,
+      "faceRight": 0,
+      "bitmapResolution": 1,
+      "name": "净化绿光",
+      "path": "purification_green.svg"
+    },
+    {
+      "x": 100,
+      "y": 100,
+      "faceRight": 0,
+      "bitmapResolution": 1,
+      "name": "黑暗紫光",
+      "path": "dark_purple.svg"
+    },
+    {
+      "x": 100,
+      "y": 100,
+      "faceRight": 0,
+      "bitmapResolution": 1,
+      "name": "金色力量",
+      "path": "golden_power.svg"
+    },
+    {
+      "x": 100,
+      "y": 100,
+      "faceRight": 0,
+      "bitmapResolution": 1,
+      "name": "蓝色护盾",
+      "path": "blue_shield.svg"
+    },
+    {
+      "x": 100,
+      "y": 100,
+      "faceRight": 0,
+      "bitmapResolution": 1,
+      "name": "红色警告",
+      "path": "red_warning.svg"
+    },
+    {
+      "x": 100,
+      "y": 100,
+      "faceRight": 0,
+      "bitmapResolution": 1,
+      "name": "治疗闪光",
+      "path": "healing_sparkle.svg"
+    }
+  ],
+  "fAnimations": {},
+  "animBindings": {}
+}

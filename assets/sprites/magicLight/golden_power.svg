@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="goldGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#FFD700;stop-opacity:1" />
+      <stop offset="40%" style="stop-color:#FFA500;stop-opacity:0.9" />
+      <stop offset="70%" style="stop-color:#FF8C00;stop-opacity:0.5" />
+      <stop offset="100%" style="stop-color:#FF6347;stop-opacity:0" />
+    </radialGradient>
+    <filter id="blur3">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="2.5" />
+    </filter>
+  </defs>
+  
+  <!-- Outer rays -->
+  <g opacity="0.7">
+    <line x1="100" y1="100" x2="100" y2="20" stroke="#FFD700" stroke-width="4" stroke-linecap="round"/>
+    <line x1="100" y1="100" x2="170" y2="40" stroke="#FFD700" stroke-width="3" stroke-linecap="round"/>
+    <line x1="100" y1="100" x2="180" y2="100" stroke="#FFA500" stroke-width="4" stroke-linecap="round"/>
+    <line x1="100" y1="100" x2="170" y2="160" stroke="#FFA500" stroke-width="3" stroke-linecap="round"/>
+    <line x1="100" y1="100" x2="100" y2="180" stroke="#FFD700" stroke-width="4" stroke-linecap="round"/>
+    <line x1="100" y1="100" x2="30" y2="160" stroke="#FFD700" stroke-width="3" stroke-linecap="round"/>
+    <line x1="100" y1="100" x2="20" y2="100" stroke="#FFA500" stroke-width="4" stroke-linecap="round"/>
+    <line x1="100" y1="100" x2="30" y2="40" stroke="#FFA500" stroke-width="3" stroke-linecap="round"/>
+  </g>
+  
+  <!-- Glow -->
+  <circle cx="100" cy="100" r="70" fill="url(#goldGlow)" opacity="0.8" filter="url(#blur3)"/>
+  
+  <!-- Sparkles -->
+  <g opacity="0.95">
+    <polygon points="100,35 103,42 110,42 104,47 107,54 100,49 93,54 96,47 90,42 97,42" fill="#FFFFFF"/>
+    <polygon points="165,70 167,75 172,75 168,78 170,83 165,79 160,83 162,78 158,75 163,75" fill="#FFFF00"/>
+    <polygon points="165,130 167,135 172,135 168,138 170,143 165,139 160,143 162,138 158,135 163,135" fill="#FFFF00"/>
+    <polygon points="35,70 37,75 42,75 38,78 40,83 35,79 30,83 32,78 28,75 33,75" fill="#FFD700"/>
+    <polygon points="35,130 37,135 42,135 38,138 40,143 35,139 30,143 32,138 28,135 33,135" fill="#FFD700"/>
+  </g>
+  
+  <!-- Core -->
+  <circle cx="100" cy="100" r="40" fill="#FFD700" opacity="0.95"/>
+  <circle cx="100" cy="100" r="25" fill="#FFA500"/>
+  <circle cx="100" cy="100" r="15" fill="#FFFFFF" opacity="0.9"/>
+</svg>
