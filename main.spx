@@ -1,0 +1,224 @@
+// 初始化游戏，创建角色并设置初始场景
+onStart => {
+	// 1. 创建小红帽精灵
+	// 精灵已经在项目中创建好了，直接使用即可
+	redHood.setXYpos 0, -30
+	redHood.show
+
+	wolf.setXYpos 160, 20
+	wolf.show
+
+	// 切换到第一个场景
+	setBackdrop "moonlight_lake"
+}
+
+onBackdrop "moonlight_lake", => {
+	// 环境设置
+	setGraphicEffect ColorEffect, 30
+	play "bgm", true
+	setVolume 40 // 设置音量为 50%（范围 0-100）
+
+	// 隐藏魔法鹿
+	magicDeer.hide
+	magicWater.hide
+	cureHerb.hide
+	// 设置角色位置
+	redHood.setXYpos 0, -30
+	wolf.setXYpos 160, -20
+	play "雷声"
+
+	// 净化魔法剧情
+	// 先让 wolf 晃动表示挣扎
+	// 先让 wolf 晃动表示挣扎，并添加闪烁效果
+	repeat 25, => {
+		wolf.changeXpos -2
+		wolf.changeGraphicEffect ColorEffect, -80 // 闪烁变暗
+		wait 0.01
+		wolf.changeXpos 3
+		wolf.changeGraphicEffect ColorEffect, 0 // 闪烁变亮
+		wait 0.01
+		wolf.changeXpos -2
+		wolf.changeGraphicEffect ColorEffect, -60 // 再次变暗
+		wait 0.01
+		wolf.clearGraphicEffects // 恢复正常
+		wait 0.01
+	}
+
+	// 晃动结束后等待位置稳定再说话
+	wait 0.3
+	wolf.say "快...快走...我控制不了自己...", 2
+
+	wait 1
+	redHood.say "也许...我可以帮你。", 2
+	redHood.say " 这是森林守护者奶奶给我的魔法露水", 2
+
+	wait 1
+
+	// 显示魔法水瓶并移动到狼的位置
+	magicWater.setXYpos 0, 230
+	magicWater.show
+	magicWater.glide 120, 10, 1.5
+
+	// 净化效果
+	wolf.changeGraphicEffect ColorEffect, 0
+	play "水滴声"
+	wait 3
+
+	// 隐藏水瓶
+	magicWater.hide
+
+	// 真相对话
+	wolf.say "多...谢谢你。我已经很久没有清醒过了。", 2
+	wait 1
+	redHood.say "到底发生了什么？", 1.5
+	// wait 1
+	wolf.say "我是狼族王子灰云，黑暗巫师控制了我，逼我夺取徽章。", 3
+
+	// wait 1
+	redHood.say "那我们联手吧！一起打败黑暗巫师！", 2
+	wolf.say "好！我知道他的阴谋，我们需要找到净化草药彻底解除控制。", 3
+
+	// 场景过渡
+	wait 1
+	// stopPlaying "calm_moonlight_music"
+	setBackdrop "moonlight_lake2"
+}
+
+onBackdrop "moonlight_lake2", => {
+	// 环境设置
+
+	// 设置角色初始位置（在屏幕右侧）
+	magicDeer.setXYpos 60, 10
+	redHood.setXYpos -20, 10
+	wolf.setXYpos 140, 10
+
+	// 先隐藏草药，稍后在左侧显示
+	cureHerb.hide
+	cureHerb.setXYpos -150, 10
+
+	// 显示所有角色
+	// magicDeer 神话般慢慢显现
+	magicDeer.show
+	magicDeer.setGraphicEffect GhostEffect, 100 // 先完全透明
+
+	// 逐渐显现（从透明到可见）
+	repeat 20, => {
+		magicDeer.changeGraphicEffect GhostEffect, -5 // 每次减少 5% 透明度
+		wait 0.05
+	}
+
+	// 确保完全可见
+	magicDeer.clearGraphicEffects
+	redHood.show
+	wolf.show
+
+	wait 1
+
+	// 先说话，等对话完全结束
+	redHood.say "你就是传说中的神鹿？", 1.5
+
+	redHood.say "我们是来寻找净化草药的，为了打败黑暗巫师！", 2.5
+	magicDeer.say "我可以指引你们草药的位置", 3
+
+	play "草地行走"
+	// magicDeer 先向左移动
+	magicDeer.setVelocity -80, 0
+
+	// 等待 magicDeer 走到最左边（移动约 4 秒，到达屏幕左侧）
+	wait 2
+
+	// magicDeer 停下来
+	magicDeer.setVelocity 0, 0
+
+	// redHood 转身向左（镜像翻转）
+	redHood.setRotationStyle LeftRight
+	redHood.setHeading Left
+	wait 0.5
+
+	// redHood 转身向左
+	redHood.setHeading Left
+	wait 0.5
+
+	// 所有人物一起向左移动，走出屏幕
+	magicDeer.setVelocity -80, 0
+	redHood.setVelocity -80, 0
+	wolf.setVelocity -80, 0
+
+	// 移动足够长时间，让角色完全走出屏幕（再移动约 5 秒）
+	wait 2.5
+
+	// 停止移动
+	magicDeer.setVelocity 0, 0
+	redHood.setVelocity 0, 0
+	wolf.setVelocity 0, 0
+
+	// 切换到新背景
+	setBackdrop "moonlight_lake3"
+}
+
+onBackdrop "moonlight_lake3", => {
+	// 设置角色在屏幕正中
+	magicDeer.setXYpos 0, 10
+	redHood.setXYpos -80, 10
+	wolf.setXYpos 80, 10
+	// redHood 转身向左（镜像翻转）
+	redHood.setRotationStyle LeftRight
+	redHood.setHeading Right
+	wait 0.5
+
+	// 设置草药位置（在角色附近）
+	cureHerb.setXYpos 0, -50
+	cureHerb.hide
+
+	// 显示所有角色
+	magicDeer.show
+	redHood.show
+	wolf.show
+
+	wait 1
+
+	// 发现草药的剧情
+	play "获得宝石"
+	play "获得宝石"
+	redHood.say "看！那里有一株发光的草药！有了它，你就能化解诅咒", 2
+	wait 0.5
+
+	// 显示草药并添加发光效果
+	cureHerb.show
+	cureHerb.setGraphicEffect ColorEffect, -50
+
+	// magicDeer 转身向右
+	magicDeer.setHeading Right
+	wait 0.5
+
+	// magicDeer 向右走出屏幕
+	magicDeer.setVelocity 80, 0
+
+	// 等待 magicDeer 走出屏幕（假设需要移动约 8 秒）
+	wait 5
+
+	// 停止移动
+	magicDeer.setVelocity 0, 0
+
+	// 草药滑动到 wolf 的手上
+	cureHerb.glide wolf, 1.5
+	wait 0.5
+
+	// 草药消失
+	cureHerb.hide
+
+	// 建立信任的互动
+	wolf.say "多亏了你，我才能离摆脱控制更进一步。", 2.5
+	wait 0.5
+	redHood.say "我们是搭档嘛！", 2
+
+	//   wolf.animate "collect_herb", true;
+	//   wait 2;
+	//   wolf.stopAnimation "collect_herb";
+	//   cureHerb.hide();
+
+	//   // 场景过渡
+	wait 1
+	//   stop "adventure_music";
+	//   setBackdropAndWait "wolf_clan_ruins";
+}
