@@ -1,0 +1,236 @@
+import (
+	"strconv"
+	"strings"
+)
+
+// type CmdAskWith struct {
+// 	Message string `desc:"要问的问题"`
+// }
+
+type CmdChooseWith struct {
+	Message string `desc:"生成四个剧情选项"`
+}
+
+// type CmdSpeakWith struct {
+// 	Message string `desc:"要给的选项"`
+// }
+
+type CmdUpdateMBTIWith struct {
+	Message    string `desc:"要变化MBTI的数值"`
+	MBTIChange string `desc:"MBTI数值变化值：EI, SN, TF, JP"`
+}
+
+// 位置信息
+type MBTI struct {
+	EI int // 外向(E) vs 内向(I)，分数越高越外向
+	SN int // 实感(S) vs 直觉(N)，分数越高越直觉
+	TF int // 思考(T) vs 情感(F)，分数越高越情感
+	JP int // 判断(J) vs 感知(P)，分数越高越感知
+}
+
+var (
+	brain     ai.Player
+	playerRed ai.Player
+
+	mbti MBTI
+
+	lastChoose       string
+	lastChooseArr    []string
+	lastChooseResult string
+	// lastQuestion     string
+)
+
+func extractNumber(changeStr string) int {
+	// 提取字符串中的数字部分
+	numStr := ""
+	isNegative := false
+	foundNumber := false
+
+	for i := 0; i < len(changeStr); i++ {
+		ch := changeStr[i]
+		if ch == '-' {
+			isNegative = true
+		} else if ch == '+' {
+			isNegative = false
+		} else if ch >= '0' && ch <= '9' {
+			numStr = numStr + string(ch)
+			foundNumber = true
+		} else if foundNumber {
+			// 如果已经找到数字，遇到非数字就停止
+			break
+		}
+	}
+
+	if numStr == "" {
+		return 0
+	}
+
+	// 将字符串转换为整数
+	num := 0
+	for i := 0; i < len(numStr); i++ {
+		num = num*10 + int(numStr[i]-'0')
+	}
+
+	if isNegative {
+		return -num
+	}
+	return num
+}
+
+func parseMBTIChanges(mbtiStr string) (eiChange, snChange, tfChange, jpChange int) {
+	// 默认值
+	eiChange, snChange, tfChange, jpChange = 0, 0, 0, 0
+
+	// 按逗号分割字符串
+	var changes = strings.split(mbtiStr, ",")
+
+	for i := 0; i < len(changes); i++ {
+		var change = changes[i]
+		change = strings.TrimSpace(change)
+
+		// 按固定位置提取数字（跳过前2个字符）
+		if i == 0 {
+			eiChange = extractNumber(change) // 第一个是EI
+		} else if i == 1 {
+			snChange = extractNumber(change) // 第二个是SN
+		} else if i == 2 {
+			tfChange = extractNumber(change) // 第三个是TF
+		} else if i == 3 {
+			jpChange = extractNumber(change) // 第四个是JP
+		}
+	}
+
+	printf("变化mbti：%d,%d,%d,%d", eiChange, snChange, tfChange, jpChange)
+
+	return eiChange, snChange, tfChange, jpChange
+}
+
+func updateStatus(mbtiStr string) {
+	ei, sn, tf, jp := parseMBTIChanges(mbtiStr)
+	printf("原mbti：%d,%d,%d,%d", mbti.EI, mbti.SN, mbti.TF, mbti.JP)
+
+	mbti.EI += ei
+	mbti.SN += sn
+	mbti.TF += tf
+	mbti.JP += jp
+
+	// 确保数值在合理范围内
+	if mbti.EI < 0 {
+		mbti.EI = 0
+	}
+	if mbti.EI > 100 {
+		mbti.EI = 100
+	}
+	if mbti.SN < 0 {
+		mbti.SN = 0
+	}
+	if mbti.SN > 100 {
+		mbti.SN = 100
+	}
+	if mbti.TF < 0 {
+		mbti.TF = 0
+	}
+	if mbti.TF > 100 {
+		mbti.TF = 100
+	}
+	if mbti.JP < 0 {
+		mbti.JP = 0
+	}
+	if mbti.JP > 100 {
+		mbti.JP = 100
+	}
+
+	printf("新mbti：%d,%d,%d,%d", mbti.EI, mbti.SN, mbti.TF, mbti.JP)
+}
+
+func tryThink() {
+	// if len(lastQuestion) > 0 {
+	// 	printf("tick-lastQuestion：%s", lastQuestion)
+	// 	var tmpLastQuestion = lastQuestion
+	// 	lastQuestion = ""
+	// 	brain.think tmpLastQuestion
+	// }
+	if len(lastChoose) > 0 {
+		printf("tick-lastChoose%s", lastChoose)
+		var tmpLastChoose = lastChoose
+		lastChoose = ""
+		brain.think tmpLastChoose
+	}
+	if len(lastChooseResult) > 0 {
+		printf("tick-lastChooseResult%s", lastChooseResult)
+		var tmpLastChooseResult = lastChooseResult
+		lastChooseResult = ""
+		playerRed.think sprintf("根据小红帽的选择：%s，更新MBTI数值,格式是:EI*, SN*, TF*,JP*", tmpLastChooseResult)
+	}
+	// printf("tick")
+}
+
+onStart => {
+	// 初始化MBTI数值
+	mbti.EI = 50
+	mbti.SN = 50
+	mbti.TF = 50
+	mbti.JP = 50
+
+	brain.setRole "Adult", {
+		"name":     "背景故事",
+		"language": "中文",
+	}
+
+	playerRed.setRole "child", {
+		"name":     name,
+		"language": "中文",
+		"mbti":     mbti, // 把当前MBTI状态告诉AI
+	}
+
+	// playerRed.onCmd CmdAskWith, (cmd) => {
+	// 	ask cmd.Message
+	// 	printf("cmd,%s", "用户回答：%s", answer)
+	// 	lastQuestion = sprintf("根据内容：%s，更新MBTI数值", answer)
+	// 	printf("lastQuestion：%s", lastQuestion)
+	// 	return ai.Break
+	// }
+
+	playerRed.onCmd CmdUpdateMBTIWith, (cmd) => {
+		printf("cmd,%s", cmd.MBTIChange)
+		updateStatus cmd.MBTIChange
+		return ai.Break
+	}
+
+	brain.onCmd CmdChooseWith, (cmd) => {
+		printf("cmd,%s", cmd.Message)
+		lastChooseArr = strings.split(cmd.Message, ".")
+		say cmd.Message, 3
+		return ai.Break
+	}
+
+	forever => {
+		wait 1
+		tryThink()
+	}
+}
+
+onKey Key1, => {
+	lastChooseResult = lastChooseArr[1]
+}
+
+onKey Key2, => {
+	lastChooseResult = lastChooseArr[2]
+}
+
+onKey Key3, => {
+	lastChooseResult = lastChooseArr[3]
+}
+
+onKey Key4, => {
+	lastChooseResult = lastChooseArr[4]
+}
+
+onClick => {
+	// lastQuestion = "你想问什么呢"
+	lastChoose = "按照格式：1.xx，2.xx，3.xx，4.xx，请你根据小红帽和灰太狼的故事，生成4段剧情"
+}
+
+onStart => {
+	hide
+}

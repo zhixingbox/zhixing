@@ -254,4 +254,6 @@ onBackdrop "moonlight_lake3", => {
 	wait 1
 	//   stop "adventure_music";
 	//   setBackdropAndWait "wolf_clan_ruins";
+
+	broadcast "backdrop07"
 }

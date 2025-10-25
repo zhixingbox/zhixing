@@ -1,0 +1,22 @@
+var (
+	status int //0 结束，1 未开始，2 执行中
+)
+
+func playAction() {
+	say "发现历史", 3
+}
+
+onStart => {
+	status = 1
+	hide
+}
+
+onMsg "RedHood07Play", => {
+	status = 2
+	show
+
+	playAction
+
+	hide
+	status = 0
+}

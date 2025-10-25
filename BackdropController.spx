@@ -1,0 +1,63 @@
+func hideAll() {
+	redHood.hide
+	wolf.hide
+	magicDeer.hide
+	magicWater.hide
+	cureHerb.hide
+	redHood1.hide
+	grass.hide
+	grandma1.hide
+	dog1.hide
+	grass1.hide
+	horse1.hide
+	lu1.hide
+	peacock1.hide
+	wolf1.hide
+	tiger1.hide
+}
+
+onStart => {
+	hide
+}
+
+onMsg (msg, data) => {
+	printf("onMsg: %s", msg)
+
+	if msg == "backdrop07" {
+		setBackdrop "backdrop07"
+	} else if msg == "backdrop08" {
+		setBackdrop "backdrop08"
+	} else if msg == "backdrop09" {
+		setBackdrop "backdrop09"
+	}
+}
+
+onBackdrop "backdrop07", => {
+	//发现真相
+	hideAll()
+
+	broadcast "RedHood07Play"
+	broadcast "Wolf07Play"
+
+	waitUntil RedHood07.status == 0 && Wolf07.status == 0
+
+	broadcast "backdrop08"
+}
+
+onBackdrop "backdrop08", => {
+	//决战
+	broadcast "RedHood08Play"
+	broadcast "Wolf08Play"
+
+	waitUntil RedHood08.status == 0 && Wolf08.status == 0
+
+	broadcast "backdrop09"
+}
+
+onBackdrop "backdrop09", => {
+	//新的开始
+	broadcast "RedHood09Play"
+	broadcast "Wolf09Play"
+
+	waitUntil RedHood09.status == 0 && Wolf09.status == 0
+}
