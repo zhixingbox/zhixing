@@ -1,0 +1,37 @@
+onStart => {
+	show
+	play "kasol小红帽森林"
+}
+
+onBackdrop "scene1", => {
+	setVolume 50
+	say "小红帽与奶奶相依为命", 1.5
+	wait 1
+	say "奶奶是前任森林守护者，年事已高", 1.5
+	wait 1
+	say "小红帽开始学习守护者的技能", 2.5
+	
+	repeat 4, => {
+		turn Right
+		wait 0.2
+	}
+	
+	stepTo "grass"
+	wait 0.1
+	
+	hide
+	
+	broadcast "startMoonlightScene"
+}
+
+onBackdrop "scene2", => {
+	hide
+}
+
+onBackdrop "scene3", => {
+	play "kasol小红帽森林"
+	setXYpos -180, -20
+	show
+	stepTo "wolf1"
+	say "大灰狼，你怎么了，你是不是被控制了", 1
+}
