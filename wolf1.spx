@@ -1,0 +1,36 @@
+onStart => {
+	hide
+}
+
+onBackdrop "scene2", => {
+	show
+	play "雷声"
+	glide -150, -80, 2
+	say "灰太狼被黑暗巫师控制", 1
+	play "风声"
+	say "森林开始出现异常现象...", 2
+	say "动物们变得焦躁不安", 1
+	say "我必须要夺取守护者徽章", 1
+	broadcast "scene3"
+	setBackdrop "scene3"
+}
+
+onBackdrop "scene3", => {
+	show
+	say "快给我守护者徽章", 1
+	glide 50, -80, 2
+	repeat 4, => {
+		turn Right // 向右转
+		wait 0.2
+	}
+
+}
+onBackdrop "moonlight_lake", => {
+	hide
+}
+onBackdrop "moonlight_lake2", => {
+	hide
+}
+onBackdrop "moonlight_lake3", => {
+	hide
+}

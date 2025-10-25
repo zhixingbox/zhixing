@@ -1,0 +1,8 @@
+onStart => {
+	redHood.hide
+	wolf.hide
+	magicDeer.hide
+	cureHerb.hide
+	magicWater.hide
+	setBackdrop "scene1" // 先启动场景1
+}

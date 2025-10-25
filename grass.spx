@@ -1,0 +1,7 @@
+onBackdrop backdrop => {
+	if backdrop == "scene1" {
+		show
+	} else {
+		hide
+	}
+}

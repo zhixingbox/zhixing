@@ -1,0 +1,12 @@
+onStart => {
+	show
+	// setHeading rand(1, 10)
+	glide -229, -116, 15
+}
+
+onBackdrop "scene2", => {
+	hide
+}
+onBackdrop "scene3", => {
+	hide
+}

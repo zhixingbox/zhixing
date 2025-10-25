@@ -1,0 +1,72 @@
+// 跳舞方法
+func dance() {
+	// 播放行走动画并左右移动
+	animate "行走", true // 循环播放行走动画
+
+	repeat 3, => {
+		// 向右移动并转向
+		turn Right, 2
+		changeXpos 20
+		wait 0.3
+
+		// 向左移动并转向
+		turn Left, 2
+		changeXpos -20
+		wait 0.3
+	}
+
+	// 原地旋转
+	repeat 4, => {
+		turn Right, 3
+		wait 0.2
+	}
+
+	// 停止动画，回到空闲状态
+	stopAnimation "行走"
+	animate "空闲"
+	setHeading Right // 恢复朝向
+}
+
+onStart => {
+	//scene1
+	show
+	play "kasol小红帽森林3"
+	setVolume 50
+	say "我叫小红帽,我和我的奶奶相依为命", 1.5
+	wait 1
+	say "我的奶奶是前任森林守护者，现在年事已高", 1.5
+	wait 1
+	say "我要开始学习守护者的技能", 1
+	say "去守卫这片森林", 1.2
+	say "看看我的技能吧", 1.5
+	dance()
+	repeat 4, => {
+		turn Right // 向右转
+		wait 0.2
+	}
+	stepTo "grass"
+	wait 0.1
+	//小红帽消失
+	broadcast "scene2"
+	hide
+	setBackdrop "scene2"
+}
+
+//setXYpos -300, -300
+//setBackdrop "scene2"
+onBackdrop "scene2", => {
+	hide
+}
+
+onBackdrop "scene3", => {
+	play "kasol小红帽森林2"
+	setXYpos -180, -20
+	redHood1.show
+	stepTo "wolf1"
+	say "大灰狼，你怎么了，你是不是被控制了", 1
+
+	//glide 12, -80, 2
+}
+onBackdrop "moonlight_lake", => {
+	redHood1.hide
+}

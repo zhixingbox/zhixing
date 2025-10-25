@@ -1,0 +1,10 @@
+onStart => {
+	hide
+}
+onBackdrop "scene3", => {
+	show
+	say "小红帽小心"
+}
+onBackdrop "moonlight_lake", => {
+	hide
+}
