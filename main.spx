@@ -1,18 +1,51 @@
-// 初始化游戏，创建角色并设置初始场景
-onStart => {
-	// 1. 创建小红帽精灵
-	// 精灵已经在项目中创建好了，直接使用即可
+func 播放背景序列() {
+	setBackdropAndWait "scene1"
+	wait 2
+	setBackdropAndWait "scene2"
+	wait 2
+
+	setBackdropAndWait "scene3"
+	wait 2
+
+	setBackdropAndWait "moonlight_lake"
+	wait 2
+
+	setBackdropAndWait "moonlight_lake2"
+	wait 2
+
+	setBackdropAndWait "moonlight_lake3"
+	wait 2
+
+}
+
+onMsg "moonlight_lake", => { // 监听完成消息
+	wait 1
 	redHood.setXYpos 0, -30
 	redHood.show
-
 	wolf.setXYpos 160, 20
 	wolf.show
-
-	// 切换到第一个场景
 	setBackdrop "moonlight_lake"
 }
 
+// 初始化游戏，创建角色并设置初始场景
+// onStart => {
+
+// 	播放背景序列()
+
+// 	// 1. 创建小红帽精灵
+// 	// 精灵已经在项目中创建好了，直接使用即可
+// 	redHood.setXYpos 0, -30
+// 	redHood.show
+
+// 	wolf.setXYpos 160, 20
+// 	wolf.show
+
+// 	// 切换到第一个场景
+// 	setBackdrop "moonlight_lake"
+// }
+
 onBackdrop "moonlight_lake", => {
+
 	// 环境设置
 	setGraphicEffect ColorEffect, 30
 	play "bgm", true

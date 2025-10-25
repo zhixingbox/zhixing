@@ -1,0 +1,16 @@
+onStart => {
+	hide
+}
+
+onBackdrop "scene2", => {
+	show
+	glide 120, -50, 4
+	horse1.say "我控制不了我自己了", 2
+	repeat 4, => {
+		turn Right // 向右转
+		wait 0.2
+	}
+}
+onBackdrop "scene3", => {
+	hide
+}
