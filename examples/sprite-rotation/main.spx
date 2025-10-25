@@ -1,0 +1,43 @@
+var (
+	Sprite1 Sprite
+)
+
+onStart => {
+	Sprite1.show
+	Sprite1.setXYpos 0, 0
+	Sprite1.setSize 1
+	
+	rotateSprite
+}
+
+func rotateSprite() {
+	forever => {
+		Sprite1.turn Right, 5
+		wait 0.05
+	}
+}
+
+onKey KeySpace, => {
+	rotateContinuously
+}
+
+func rotateContinuously() {
+	forever => {
+		Sprite1.changeHeading 10
+		wait 0.1
+	}
+}
+
+onKey KeyR, => {
+	rotateToTarget
+}
+
+func rotateToTarget() {
+	Sprite1.setHeading Up
+	wait 0.5
+	Sprite1.setHeading Right
+	wait 0.5
+	Sprite1.setHeading Down
+	wait 0.5
+	Sprite1.setHeading Left
+}

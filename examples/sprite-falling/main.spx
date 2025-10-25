@@ -1,0 +1,57 @@
+var (
+	Sprite1 Sprite
+)
+
+onStart => {
+	Sprite1.show
+	fallFromSky1
+}
+
+func fallFromSky1() {
+	Sprite1.setXYpos 0, 200
+	Sprite1.setSize 1
+	
+	repeat 100, => {
+		Sprite1.changeYpos -4
+		wait 0.05
+	}
+}
+
+onKey KeySpace, => {
+	fallWithGravity
+}
+
+func fallWithGravity() {
+	Sprite1.setXYpos 0, 200
+	Sprite1.setPhysicsMode DynamicPhysics
+	Sprite1.setGravity 2
+}
+
+onKey KeyG, => {
+	glideFall
+}
+
+func glideFall() {
+	Sprite1.setXYpos 0, 200
+	Sprite1.glide 0, -150, 2
+}
+
+onKey KeyV, => {
+	fallWithVelocity
+}
+
+func fallWithVelocity() {
+	Sprite1.setXYpos 0, 200
+	Sprite1.setVelocity 0, -100
+	Sprite1.setPhysicsMode DynamicPhysics
+}
+
+onKey KeyR, => {
+	resetPosition
+}
+
+func resetPosition() {
+	Sprite1.setPhysicsMode NoPhysics
+	Sprite1.setXYpos 0, 200
+	Sprite1.setVelocity 0, 0
+}
