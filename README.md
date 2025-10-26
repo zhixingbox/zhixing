@@ -13,8 +13,6 @@ AI会生成剧情选项给观众，并根据观众的选择记录 MBTI 数值，
 
 1. demo视频
 
-[点击查看 Demo 视频](https://github.com/user-attachments/assets/5104596f-ea66-4ca5-859d-c16af636caf4)
-
 [点击查看 Demo 视频](https://github.com/user-attachments/assets/5ea359ca-8a45-48e8-8fa0-4ea7cf482985)
 
 2. 环境要求
