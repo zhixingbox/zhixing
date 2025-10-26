@@ -50,13 +50,15 @@ onBackdrop "backdrop07", => {
 	broadcast "Wolf07Play"
 	waitUntil Wolf07.status == 3
 
+	AIController.showChoose3
+
 	broadcast "RedHood07End"
 	broadcast "Wolf07End"
 	broadcast "VoiceOver07End"
 
 	waitUntil RedHood07.status == 0 && Wolf07.status == 0 && VoiceOver07.status == 0
 
-	wait 0.5
+	wait 8
 
 	stopAllSounds
 	broadcast "backdrop08"
@@ -88,6 +90,8 @@ onBackdrop "backdrop08", => {
 	broadcast "Fire08Play"
 	waitUntil Fire08.status == 3
 
+	AIController.showChoose2
+
 	wait 1
 
 	broadcast "Boss08End"
@@ -100,7 +104,7 @@ onBackdrop "backdrop08", => {
 
 	waitUntil RedHood08.status == 0 && Wolf08.status == 0 && VoiceOver08.status == 0 && Boss08.status == 0 && BadA08.status == 0 && BadB08.status == 0 && Fire08.status == 0
 
-	wait 0.5
+	wait 8
 
 	stopAllSounds
 	broadcast "backdrop09"
@@ -115,12 +119,16 @@ onBackdrop "backdrop09", => {
 	waitUntil RedHood09.status == 3 && Wolf09.status == 3
 	broadcast "VoiceOver09Play"
 	waitUntil VoiceOver09.status == 3
+
+	AIController.showChoose
+
 	broadcast "RedHood09End"
 	broadcast "Wolf09End"
 	broadcast "VoiceOver09End"
 
 	waitUntil RedHood09.status == 0 && Wolf09.status == 0 && VoiceOver09.status == 0
 
-	AIController.showChoose
+	wait 4
+
 	AIController.showResult
 }

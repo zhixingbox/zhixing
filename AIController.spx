@@ -16,7 +16,6 @@ type CmdShowResultWith struct {
 	Message string `desc:"展示最终结论，根据我的MBTI数值，判断我的性格"`
 }
 
-// 位置信息
 type MBTI struct {
 	EI int // 外向(E) vs 内向(I)，分数越高越外向
 	SN int // 实感(S) vs 直觉(N)，分数越高越直觉
@@ -34,6 +33,11 @@ var (
 	lastChooseArr    []string
 	lastChooseResult string
 	lastResult       string
+
+	result  string
+	mbtiMap map[string]string
+
+	history string
 )
 
 func showResult() {
@@ -41,7 +45,15 @@ func showResult() {
 }
 
 func showChoose() {
-	lastChoose = "按照格式：1.xx，2.xx，3.xx，4.xx，请你生成4段剧情,每段剧情不超过25字，背景是：小红帽和大灰狼已经打败了魔王，走向新的冒险"
+	lastChoose = sprintf("按照格式：1.xx，2.xx，3.xx，4.xx，请你生成4段分支小剧情,每段剧情不超过25字，背景是：小红帽和大灰狼走向新的冒险,%s", history)
+}
+
+func showChoose2() {
+	lastChoose = sprintf("按照格式：1.xx，2.xx，3.xx，4.xx，请你生成4段分支小剧情,每段剧情不超过25字，背景是：小红帽和大灰狼已经打败了魔王,%s", history)
+}
+
+func showChoose3() {
+	lastChoose = sprintf("按照格式：1.xx，2.xx，3.xx，4.xx，请你生成4段分支小剧情,每段剧情不超过25字，背景是：小红帽和大灰狼找到了尘封的历史，是魔王诬陷大灰狼,%s", history)
 }
 
 func extractNumber(changeStr string) int {
@@ -157,13 +169,13 @@ func tryThink() {
 	if len(lastChooseResult) > 0 {
 		printf("tick-lastChooseResult%s", lastChooseResult)
 		var tmpLastChooseResult = lastChooseResult
-		lastChooseResult = ""
+		lastChooseResult = "3"
 		playerRed.think sprintf("根据小红帽的选择：%s，更新MBTI数值,格式是:EI*, SN*, TF*,JP*", tmpLastChooseResult)
 	}
 	if len(lastResult) > 0 {
 		printf("tick-showResult%s", lastResult)
 		lastResult = ""
-		playerRed.think sprintf("展示最终结论，不超过100字，根据我的MBTI数值 EI:%d SN:%d TF:%d JP:%d，描述我的性格种类", mbti.EI, mbti.SN, mbti.TF, mbti.JP)
+		playerRed.think sprintf("展示最终结论，头四个字符是MBTI类型，不超过100字，根据我的MBTI数值 EI:%d SN:%d TF:%d JP:%d，描述我的性格种类", mbti.EI, mbti.SN, mbti.TF, mbti.JP)
 	}
 }
 
@@ -173,6 +185,25 @@ onStart => {
 	mbti.SN = 50
 	mbti.TF = 50
 	mbti.JP = 50
+
+	mbtiMap = map[string]string{
+		"ISTJ": "istj",
+		"ISTP": "istp",
+		"ESTP": "estp",
+		"ESTJ": "estj",
+		"ISFJ": "isfj",
+		"ISFP": "isfp",
+		"ESFP": "esfp",
+		"ESFJ": "esfj",
+		"INFJ": "infj",
+		"INFP": "infp",
+		"ENFP": "enfp",
+		"ENFJ": "enfj",
+		"INTJ": "intj",
+		"INTP": "intp",
+		"ENTP": "entp",
+		"ENTJ": "entj",
+	}
 
 	brain.setRole "Adult", {
 		"name":     "背景故事",
@@ -201,7 +232,10 @@ onStart => {
 
 	playerRed.onCmd CmdShowResultWith, (cmd) => {
 		printf("cmd,%s", cmd.Message)
+		result = cmd.Message[:4]
+		setBackdrop this.mbtiMap[this.result]
 		say cmd.Message, 5
+
 		return ai.Break
 	}
 
@@ -212,19 +246,35 @@ onStart => {
 }
 
 onKey Key1, => {
+	if len(lastChooseArr) < 5 {
+		return
+	}
 	lastChooseResult = lastChooseArr[1]
+	history = lastChooseResult + history
 }
 
 onKey Key2, => {
+	if len(lastChooseArr) < 5 {
+		return
+	}
 	lastChooseResult = lastChooseArr[2]
+	history = lastChooseResult + history
 }
 
 onKey Key3, => {
+	if len(lastChooseArr) < 5 {
+		return
+	}
 	lastChooseResult = lastChooseArr[3]
+	history = lastChooseResult + history
 }
 
 onKey Key4, => {
+	if len(lastChooseArr) < 5 {
+		return
+	}
 	lastChooseResult = lastChooseArr[4]
+	history = lastChooseResult + history
 }
 
 onStart => {
