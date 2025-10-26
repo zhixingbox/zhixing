@@ -19,7 +19,7 @@ AI会生成剧情选项给观众，并根据观众的选择记录 MBTI 数值，
 ### 项目地址与运行方式
 
 1. Xbuilder地址  
-[XBuilder连接](https://x.qiniu.com/project/wx_user_HhX0NYqI/zhixing)
+[XBuilder 地址](https://x.qiniu.com/project/wx_user_HhX0NYqI/zhixing)
 
 2. 环境要求
 
