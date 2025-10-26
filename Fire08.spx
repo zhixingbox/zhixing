@@ -1,0 +1,33 @@
+var (
+	status int //0 结束，1 未开始，2 执行中 3 自定义动画节点结束 4 战斗
+)
+
+func playAction() {
+	play "雷声"
+	glide 80, -100, 1
+}
+
+func playEnd() {
+}
+
+onStart => {
+	status = 1
+	Common.myreset this
+	setXYpos -150, -100
+	setSize 2
+}
+
+onMsg "Fire08Play", => {
+	status = 2
+	show
+
+	playAction
+	status = 3
+}
+
+onMsg "Fire08End", => {
+	playEnd
+
+	hide
+	status = 0
+}

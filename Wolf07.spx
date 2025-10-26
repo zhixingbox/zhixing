@@ -1,14 +1,20 @@
 var (
-	status int //0 结束，1 未开始，2 执行中
+	status int //0 结束，1 未开始，2 执行中 3 自定义动画节点结束
 )
 
 func playAction() {
-	say "发现历史", 3
+	stepTo -140, -130
+	wait 0.1
+	Common.mysay this, "（眼神坚定地看着小红帽）我们一起去找魔王，把和平带回森林吧！"
+}
+
+func playEnd() {
+	stepTo 250, -130
 }
 
 onStart => {
 	status = 1
-	hide
+	Common.myreset this
 }
 
 onMsg "Wolf07Play", => {
@@ -16,6 +22,11 @@ onMsg "Wolf07Play", => {
 	show
 
 	playAction
+	status = 3
+}
+
+onMsg "Wolf07End", => {
+	playEnd
 
 	hide
 	status = 0

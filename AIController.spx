@@ -3,17 +3,9 @@ import (
 	"strings"
 )
 
-// type CmdAskWith struct {
-// 	Message string `desc:"要问的问题"`
-// }
-
 type CmdChooseWith struct {
 	Message string `desc:"生成四个剧情选项"`
 }
-
-// type CmdSpeakWith struct {
-// 	Message string `desc:"要给的选项"`
-// }
 
 type CmdUpdateMBTIWith struct {
 	Message    string `desc:"要变化MBTI的数值"`
@@ -144,12 +136,6 @@ func updateStatus(mbtiStr string) {
 }
 
 func tryThink() {
-	// if len(lastQuestion) > 0 {
-	// 	printf("tick-lastQuestion：%s", lastQuestion)
-	// 	var tmpLastQuestion = lastQuestion
-	// 	lastQuestion = ""
-	// 	brain.think tmpLastQuestion
-	// }
 	if len(lastChoose) > 0 {
 		printf("tick-lastChoose%s", lastChoose)
 		var tmpLastChoose = lastChoose
@@ -182,14 +168,6 @@ onStart => {
 		"language": "中文",
 		"mbti":     mbti, // 把当前MBTI状态告诉AI
 	}
-
-	// playerRed.onCmd CmdAskWith, (cmd) => {
-	// 	ask cmd.Message
-	// 	printf("cmd,%s", "用户回答：%s", answer)
-	// 	lastQuestion = sprintf("根据内容：%s，更新MBTI数值", answer)
-	// 	printf("lastQuestion：%s", lastQuestion)
-	// 	return ai.Break
-	// }
 
 	playerRed.onCmd CmdUpdateMBTIWith, (cmd) => {
 		printf("cmd,%s", cmd.MBTIChange)
@@ -227,7 +205,6 @@ onKey Key4, => {
 }
 
 onClick => {
-	// lastQuestion = "你想问什么呢"
 	lastChoose = "按照格式：1.xx，2.xx，3.xx，4.xx，请你根据小红帽和灰太狼的故事，生成4段剧情"
 }
 

@@ -1,14 +1,18 @@
 var (
-	status int //0 结束，1 未开始，2 执行中
+	status int //0 结束，1 未开始，2 执行中 3 自定义动画节点结束
 )
 
 func playAction() {
-	say "走向未来", 3
+	stepTo -120, -80
+}
+
+func playEnd() {
+	stepTo 0, -40
 }
 
 onStart => {
 	status = 1
-	hide
+	Common.myreset this
 }
 
 onMsg "RedHood09Play", => {
@@ -16,6 +20,11 @@ onMsg "RedHood09Play", => {
 	show
 
 	playAction
+	status = 3
+}
+
+onMsg "RedHood09End", => {
+	playEnd
 
 	hide
 	status = 0

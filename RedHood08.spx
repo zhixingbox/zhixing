@@ -1,14 +1,24 @@
 var (
-	status int //0 结束，1 未开始，2 执行中
+	status int //0 结束，1 未开始，2 执行中 3 自定义动画节点结束 4 战斗
 )
 
 func playAction() {
-	say "决战", 3
+	stepTo -160, -100
+}
+
+func playAction2() {
+	animate "attack"
+	Common.mysay this, "守护森林的力量，请帮助我们！"
+	stopAnimation "attack"
+}
+
+func playEnd() {
+	stepTo 250, -130
 }
 
 onStart => {
 	status = 1
-	hide
+	Common.myreset this
 }
 
 onMsg "RedHood08Play", => {
@@ -16,6 +26,16 @@ onMsg "RedHood08Play", => {
 	show
 
 	playAction
+	status = 3
+}
+
+onMsg "RedHood08Play2", => {
+	playAction2
+	status = 4
+}
+
+onMsg "RedHood08End", => {
+	playEnd
 
 	hide
 	status = 0

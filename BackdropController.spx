@@ -16,8 +16,13 @@ func hideAll() {
 	tiger1.hide
 }
 
+func reset() {
+	Camera.setZoom 1
+}
+
 onStart => {
 	hide
+	// setBackdrop "backdrop07"
 }
 
 onMsg (msg, data) => {
@@ -33,31 +38,91 @@ onMsg (msg, data) => {
 }
 
 onBackdrop "backdrop07", => {
-	//发现真相
 	hideAll()
 
+	reset()
+	play "水滴声", true
+
 	broadcast "RedHood07Play"
+	waitUntil RedHood07.status == 3
+	broadcast "VoiceOver07Play"
+	waitUntil VoiceOver07.status == 3
 	broadcast "Wolf07Play"
+	waitUntil Wolf07.status == 3
 
-	waitUntil RedHood07.status == 0 && Wolf07.status == 0
+	broadcast "RedHood07End"
+	broadcast "Wolf07End"
+	broadcast "VoiceOver07End"
 
+	waitUntil RedHood07.status == 0 && Wolf07.status == 0 && VoiceOver07.status == 0
+
+	wait 0.5
+
+	stopAllSounds
 	broadcast "backdrop08"
 }
 
 onBackdrop "backdrop08", => {
-	//决战
+	reset()
+	play "风声", true
+
 	broadcast "RedHood08Play"
 	broadcast "Wolf08Play"
+	waitUntil RedHood08.status == 3 && Wolf08.status == 3
+	broadcast "Boss08Play"
+	broadcast "BadA08Play"
+	broadcast "BadB08Play"
+	waitUntil Boss08.status == 3
+	broadcast "BadA08Play2"
+	broadcast "BadB08Play2"
+	waitUntil BadA08.status == 4 && BadB08.status == 4
+	broadcast "Wolf08Play2"
+	broadcast "Wolf08Play3"
+	waitUntil Wolf08.status == 4
+	broadcast "Boss08Play2"
+	waitUntil Boss08.status == 4
+	broadcast "Wolf08Play4"
+	waitUntil Wolf08.status == 5
+	broadcast "RedHood08Play2"
+	waitUntil RedHood08.status == 4
+	broadcast "Fire08Play"
+	waitUntil Fire08.status == 3
 
-	waitUntil RedHood08.status == 0 && Wolf08.status == 0
+	wait 1
 
+	broadcast "Boss08End"
+	broadcast "BadA08End"
+	broadcast "BadB08End"
+	broadcast "Fire08End"
+	broadcast "RedHood08End"
+	broadcast "Wolf08End"
+	broadcast "VoiceOver08End"
+
+	waitUntil RedHood08.status == 0 && Wolf08.status == 0 && VoiceOver08.status == 0 && Boss08.status == 0 && BadA08.status == 0 && BadB08.status == 0 && Fire08.status == 0
+
+	wait 0.5
+
+	stopAllSounds
 	broadcast "backdrop09"
 }
 
 onBackdrop "backdrop09", => {
-	//新的开始
+	reset()
+	play "bgm", true
+
 	broadcast "RedHood09Play"
 	broadcast "Wolf09Play"
+	waitUntil RedHood09.status == 3 && Wolf09.status == 3
+	broadcast "VoiceOver09Play"
+	waitUntil VoiceOver09.status == 3
+	broadcast "RedHood09End"
+	broadcast "Wolf09End"
+	broadcast "VoiceOver09End"
 
-	waitUntil RedHood09.status == 0 && Wolf09.status == 0
+	waitUntil RedHood09.status == 0 && Wolf09.status == 0 && VoiceOver09.status == 0
+
+	wait 0.5
+
+	stopAllSounds
+	broadcast "backdrop10"
 }

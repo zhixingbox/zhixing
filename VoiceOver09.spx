@@ -1,0 +1,33 @@
+var (
+	status int //0 结束，1 未开始，2 执行中 3 自定义动画节点结束
+)
+
+func playAction() {
+	Common.mysay this, "魔王消失了，森林迎来了和平。而小红帽和大灰狼，也准备好了迎接下一个温暖的冒险！"
+}
+
+func playEnd() {
+}
+
+onStart => {
+	status = 1
+
+	hide
+	setSize 0.01
+	setXYpos 300, -300
+}
+
+onMsg "VoiceOver09Play", => {
+	status = 2
+	show
+
+	playAction
+	status = 3
+}
+
+onMsg "VoiceOver09End", => {
+	playEnd
+
+	hide
+	status = 0
+}

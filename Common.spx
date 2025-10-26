@@ -1,0 +1,13 @@
+func mysay(sprite Sprite, msg string) {
+	sprite.say msg, min(max(float64(len(msg))*0.3, 1.2), 3)
+}
+
+func myreset(sprite Sprite) {
+	sprite.hide
+	sprite.setSize 1
+	sprite.setXYpos -270, -130
+}
+
+onStart => {
+	hide
+}

@@ -1,14 +1,32 @@
 var (
-	status int //0 结束，1 未开始，2 执行中
+	status int //0 结束，1 未开始，2 执行中 3 自定义动画节点结束 4 战斗
 )
 
 func playAction() {
-	say "决战", 3
+	stepTo -140, -130
+}
+
+func playAction2() {
+	play "地板脚步声"
+	stepTo 70, -120
+}
+
+func playAction3() {
+	Common.mysay this, "保护朋友！"
+}
+
+func playAction4() {
+	play "坠落声"
+	glide -140, -130, 1
+}
+
+func playEnd() {
+	stepTo 250, -130
 }
 
 onStart => {
 	status = 1
-	hide
+	Common.myreset this
 }
 
 onMsg "Wolf08Play", => {
@@ -16,6 +34,26 @@ onMsg "Wolf08Play", => {
 	show
 
 	playAction
+	status = 3
+}
+
+onMsg "Wolf08Play2", => {
+	playAction2
+	status = 4
+}
+
+onMsg "Wolf08Play3", => {
+	playAction3
+	status = 4
+}
+
+onMsg "Wolf08Play4", => {
+	playAction4
+	status = 5
+}
+
+onMsg "Wolf08End", => {
+	playEnd
 
 	hide
 	status = 0

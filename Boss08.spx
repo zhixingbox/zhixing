@@ -1,0 +1,53 @@
+var (
+	status int //0 结束，1 未开始，2 执行中 3 自定义动画节点结束 4 战斗
+)
+
+func playAction() {
+	Common.mysay this, "（声音很大）哼！你们两个小家伙，不可能打败我！"
+}
+
+func playAction2() {
+	play "呼呼声"
+	animate "attack"
+	Common.mysay this, "你们还需要更多勇气和力量！"
+	stopAnimation "attack"
+}
+
+func playAction3() {
+	//dead
+}
+
+func playEnd() {
+}
+
+onStart => {
+	status = 1
+	Common.myreset this
+	setXYpos 130, -100
+	setSize 1.5
+}
+
+onMsg "Boss08Play", => {
+	status = 2
+	show
+
+	playAction
+	status = 3
+}
+
+onMsg "Boss08Play2", => {
+	playAction2
+	status = 4
+}
+
+onMsg "Boss08Play3", => {
+	playAction3
+	status = 5
+}
+
+onMsg "Boss08End", => {
+	playEnd
+
+	hide
+	status = 0
+}

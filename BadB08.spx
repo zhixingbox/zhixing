@@ -1,0 +1,49 @@
+var (
+	status int //0 结束，1 未开始，2 执行中 3 自定义动画节点结束 4 战斗
+)
+
+func playAction() {
+}
+
+func playAction2() {
+}
+
+func playAction3() {
+	//dead
+}
+
+func playEnd() {
+
+}
+
+onStart => {
+	status = 1
+	Common.myreset this
+	setXYpos 210, -150
+	setSize 0.8
+}
+
+onMsg "BadB08Play", => {
+	status = 2
+	show
+
+	playAction
+	status = 3
+}
+
+onMsg "BadB08Play2", => {
+	playAction2
+	status = 4
+}
+
+onMsg "BadB08Play23", => {
+	playAction3
+	status = 5
+}
+
+onMsg "BadB08End", => {
+	playEnd
+
+	hide
+	status = 0
+}
