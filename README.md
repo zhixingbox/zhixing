@@ -11,7 +11,9 @@ AI会生成剧情选项给观众，并根据观众的选择，会记录 MBTI 数
 
 ### demo与项目运行方式
 
-1. demo视频    
+1. demo视频
+
+https://github.com/zhixingbox/zhixing/raw/main/redhood-demo.mp4
 
 2. 环境要求
 - GoPlus 开发环境
