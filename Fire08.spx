@@ -3,6 +3,7 @@ var (
 )
 
 func playAction() {
+	setLayer Front
 	play "雷声"
 	glide 80, -100, 1
 }

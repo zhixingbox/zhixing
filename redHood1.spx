@@ -29,6 +29,7 @@ func dance() {
 
 onStart => {
 	//scene1
+	setXYpos 0, -60
 	show
 	play "kasol小红帽森林3"
 	setVolume 50
@@ -36,8 +37,7 @@ onStart => {
 	wait 1
 	say "我的奶奶是前任森林守护者，现在年事已高", 1.5
 	wait 1
-	say "我要开始学习守护者的技能", 1
-	say "去守卫这片森林", 1.2
+	say "我要开始学习守护者的技能，去守卫这片森林", 1.5
 	say "看看我的技能吧", 1.5
 	dance()
 	repeat 4, => {
@@ -52,21 +52,22 @@ onStart => {
 	setBackdrop "scene2"
 }
 
-//setXYpos -300, -300
-//setBackdrop "scene2"
 onBackdrop "scene2", => {
 	hide
 }
 
 onBackdrop "scene3", => {
 	play "kasol小红帽森林2"
-	setXYpos -180, -20
+	setXYpos -240, -80
 	redHood1.show
 	stepTo "wolf1"
-	say "大灰狼，你怎么了，你是不是被控制了", 1
-
-	//glide 12, -80, 2
+	wait 1
+	say "大灰狼，你怎么了,你是不是被控制了", 2
+	say "大灰狼，你去哪", 2
+	wait 1
+	broadcast "moonlight_lake"
 }
+
 onBackdrop "moonlight_lake", => {
 	redHood1.hide
 }

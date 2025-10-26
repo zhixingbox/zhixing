@@ -3,8 +3,9 @@ onStart => {
 }
 
 onBackdrop "scene2", => {
+	setXYpos -30, -50
 	show
-	glide 200, 100, 5
+	glide 200, -80, 5
 	tiger1.say "我控制不了我自己了", 2
 	repeat 4, => {
 		turn Right // 向右转

@@ -12,7 +12,7 @@ func playAction2() {
 }
 
 func playAction3() {
-	Common.mysay this, "保护朋友！"
+	Common.mysay this, "啊啊啊！"
 }
 
 func playAction4() {

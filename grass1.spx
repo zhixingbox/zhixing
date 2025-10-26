@@ -4,14 +4,8 @@ onStart => {
 
 onBackdrop "scene3", => {
 	show
-	say "小红帽送食物给奶奶途中遇到灰太狼", 1
-	say "灰太狼奉命夺取守护者徽章", 1
-	say "大灰狼，小红帽发现灰太狼眼中的挣扎", 0.5
-	say "大灰狼，你怎么了", 0.5
-	say "你是不是被控制了", 1
-	say "大灰狼，你去哪", 1
-	broadcast "moonlight_lake"
 }
+
 onBackdrop "moonlight_lake", => {
 	hide
 }
