@@ -12,6 +12,10 @@ type CmdUpdateMBTIWith struct {
 	MBTIChange string `desc:"MBTI数值变化值：EI, SN, TF, JP"`
 }
 
+type CmdShowResultWith struct {
+	Message string `desc:"展示最终结论，根据我的MBTI数值，判断我的性格"`
+}
+
 // 位置信息
 type MBTI struct {
 	EI int // 外向(E) vs 内向(I)，分数越高越外向
@@ -29,8 +33,16 @@ var (
 	lastChoose       string
 	lastChooseArr    []string
 	lastChooseResult string
-	// lastQuestion     string
+	lastResult       string
 )
+
+func showResult() {
+	lastResult = "根据我的MBTI数值，判断我的性格"
+}
+
+func showChoose() {
+	lastChoose = "按照格式：1.xx，2.xx，3.xx，4.xx，请你生成4段剧情,每段剧情不超过25字，背景是：小红帽和大灰狼已经打败了魔王，走向新的冒险"
+}
 
 func extractNumber(changeStr string) int {
 	// 提取字符串中的数字部分
@@ -148,7 +160,11 @@ func tryThink() {
 		lastChooseResult = ""
 		playerRed.think sprintf("根据小红帽的选择：%s，更新MBTI数值,格式是:EI*, SN*, TF*,JP*", tmpLastChooseResult)
 	}
-	// printf("tick")
+	if len(lastResult) > 0 {
+		printf("tick-showResult%s", lastResult)
+		lastResult = ""
+		playerRed.think sprintf("展示最终结论，不超过100字，根据我的MBTI数值 EI:%d SN:%d TF:%d JP:%d，描述我的性格种类", mbti.EI, mbti.SN, mbti.TF, mbti.JP)
+	}
 }
 
 onStart => {
@@ -166,7 +182,7 @@ onStart => {
 	playerRed.setRole "child", {
 		"name":     name,
 		"language": "中文",
-		"mbti":     mbti, // 把当前MBTI状态告诉AI
+		"mbti":     mbti,
 	}
 
 	playerRed.onCmd CmdUpdateMBTIWith, (cmd) => {
@@ -178,7 +194,14 @@ onStart => {
 	brain.onCmd CmdChooseWith, (cmd) => {
 		printf("cmd,%s", cmd.Message)
 		lastChooseArr = strings.split(cmd.Message, ".")
-		say cmd.Message, 3
+
+		say cmd.Message, 5
+		return ai.Break
+	}
+
+	playerRed.onCmd CmdShowResultWith, (cmd) => {
+		printf("cmd,%s", cmd.Message)
+		say cmd.Message, 5
 		return ai.Break
 	}
 
@@ -204,10 +227,7 @@ onKey Key4, => {
 	lastChooseResult = lastChooseArr[4]
 }
 
-onClick => {
-	lastChoose = "按照格式：1.xx，2.xx，3.xx，4.xx，请你根据小红帽和灰太狼的故事，生成4段剧情"
-}
-
 onStart => {
-	hide
+	setSize 0.01
+	setXYpos 300, -300
 }

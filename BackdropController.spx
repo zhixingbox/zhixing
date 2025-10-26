@@ -121,8 +121,6 @@ onBackdrop "backdrop09", => {
 
 	waitUntil RedHood09.status == 0 && Wolf09.status == 0 && VoiceOver09.status == 0
 
-	wait 0.5
-
-	stopAllSounds
-	broadcast "backdrop10"
+	AIController.showChoose
+	AIController.showResult
 }
