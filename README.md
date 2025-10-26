@@ -11,7 +11,11 @@ AI会生成剧情选项给观众，并根据观众的选择，会记录 MBTI 数
 
 ### demo与项目运行方式
 
-1. demo视频
+1. demo视频    
+<!-- 基础嵌入：显示播放控件，可自定义宽度 -->​
+<video src="https://raw.githubusercontent.com/zhixingbox/zhixing/refs/heads/main/demo.mp4" width="800" controls>​
+  视频加载失败？点击查看：https://raw.githubusercontent.com/zhixingbox/zhixing/refs/heads/main/demo.mp4
+</video>
 2. 环境要求
 - GoPlus 开发环境
 - XBuilder（推荐）
