@@ -90,6 +90,9 @@ onBackdrop "backdrop08", => {
 	broadcast "Fire08Play"
 	waitUntil Fire08.status == 3
 
+	broadcast "Boss08Play3"
+	waitUntil Boss08.status == 5
+
 	AIController.showChoose2
 
 	wait 1

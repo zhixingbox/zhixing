@@ -14,7 +14,26 @@ func playAction2() {
 }
 
 func playAction3() {
-	//dead
+	play "坠落声"
+	
+	repeat 8, => {
+		changeXpos -3
+		wait 0.05
+		changeXpos 6
+		wait 0.05
+		changeXpos -3
+		wait 0.05
+	}
+	
+	repeat 15, => {
+		changeGraphicEffect GhostEffect, 7
+		changeSize -6
+		changeYpos -8
+		turn 18
+		wait 0.06
+	}
+	
+	clearGraphicEffects
 }
 
 func playEnd() {
