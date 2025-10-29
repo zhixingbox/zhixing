@@ -83,13 +83,13 @@ onBackdrop "moonlight_lake2", => {
 	// 环境设置
 
 	// 设置角色初始位置（在屏幕右侧）
-	magicDeer.setXYpos 60, 10
-	redHood.setXYpos -20, 10
-	wolf.setXYpos 140, 10
+	magicDeer.setXYpos 60, -50
+	redHood.setXYpos -20, -50
+	wolf.setXYpos 140, -50
 
 	// 先隐藏草药，稍后在左侧显示
 	cureHerb.hide
-	cureHerb.setXYpos -150, 10
+	cureHerb.setXYpos -150, -50
 
 	// 显示所有角色
 	// magicDeer 神话般慢慢显现
@@ -153,16 +153,16 @@ onBackdrop "moonlight_lake2", => {
 
 onBackdrop "moonlight_lake3", => {
 	// 设置角色在屏幕正中
-	magicDeer.setXYpos 0, 10
-	redHood.setXYpos -80, 10
-	wolf.setXYpos 80, 10
+	magicDeer.setXYpos 0, -50
+	redHood.setXYpos -80, -50
+	wolf.setXYpos 80, -50
 	// redHood 转身向左（镜像翻转）
 	redHood.setRotationStyle LeftRight
 	redHood.setHeading Right
 	wait 0.5
 
 	// 设置草药位置（在角色附近）
-	cureHerb.setXYpos 0, -50
+	cureHerb.setXYpos 0, -100
 	cureHerb.hide
 
 	// 显示所有角色
