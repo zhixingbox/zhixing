@@ -18,10 +18,8 @@ func playAction3() {
 	
 	repeat 8, => {
 		changeXpos -3
-		changeGraphicEffect ColorEffect, -20
 		wait 0.05
 		changeXpos 6
-		changeGraphicEffect ColorEffect, 20
 		wait 0.05
 		changeXpos -3
 		wait 0.05
