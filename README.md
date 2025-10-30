@@ -12,11 +12,12 @@ AI会生成剧情选项给观众，并根据观众的选择记录 MBTI 数值，
 ### demo视频
 
 1. demo视频  
+互动视频的第7到第9幕将触发AI分支剧情，使用键盘1、2、3、4即可选择。最终，AI会依据你的选项，判断并决定你的MBTI人格类型，呈现相应的结算画面与性格解析。 
 
-[点击查看 Demo 视频](https://github.com/user-attachments/assets/2148644d-b407-4e59-9528-bd1854bc400e)
+[点击查看 Demo 视频](https://github.com/user-attachments/assets/3f173cf8-132f-4d0b-82d6-be3f4170f74c)
 
-[点击查看 Demo 视频](https://github.com/user-attachments/assets/d7bfefc1-15f1-49f5-ae5f-eee761ef808e)  
-互动视频的第7到第9幕将触发AI分支剧情，使用键盘1、2、3、4即可选择。最终，AI会依据你的选项，判断并决定你的MBTI人格类型，呈现相应的结算画面与性格解析。  
+[点击查看 Demo 视频](https://github.com/user-attachments/assets/2dae6a30-9292-4bdd-828e-a084031f482e)
+
 
 ### 项目地址与运行方式
 
